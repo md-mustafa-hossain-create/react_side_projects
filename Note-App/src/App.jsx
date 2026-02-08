@@ -1,0 +1,87 @@
+import { useState } from "react";
+import { NotebookPen } from "lucide-react";
+function App() {
+  const [heading, setHeading] = useState("");
+  const [notesBody, setNotesBody] = useState("");
+  const [tasks, setTasks] = useState([]);
+
+  // function to handle submit
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    // Check if both heading and notesBody are empty
+    if (heading.trim() || notesBody.trim()) {
+      const saveTask = [...tasks];
+      saveTask.push({ heading, notesBody });
+      setTasks(saveTask);
+      console.log(tasks);
+    }
+    setHeading("");
+    setNotesBody("");
+  }
+
+  // function to handle heading input
+  function handleHeading(e) {
+    setHeading(e.target.value);
+  }
+
+  //function to handle notes body input
+  function handleNotesBody(e) {
+    setNotesBody(e.target.value);
+  }
+
+  return (
+    <div className="bg-black/90 min-h-screen md:flex text-white">
+      <form
+        onSubmit={handleSubmit}
+        className=" flex items-start flex-col gap-4 p-10 md:w-1/2 "
+      >
+        <h1 className="text-3xl font-bold">Add Notes</h1>
+
+        {/* input filed for heading */}
+        <input
+          className="border-2 border-white w-full px-5 py-2 rounded   outline-none font-medium"
+          type="text"
+          placeholder="Enter your heading...."
+          value={heading}
+          onChange={handleHeading}
+        />
+
+        {/* input field for notes body */}
+        <textarea
+          className="border-2 h-20 border-white w-full px-5  py-2 rounded  outline-none font-medium"
+          type="text"
+          placeholder="Enter your Notes...."
+          value={notesBody}
+          onChange={handleNotesBody}
+        />
+        <button className=" px-5 py-2 rounded bg-white w-full text-black cursor-pointer hover:bg-gray-300 transition-all duration-150 font-bold active:scale-95">
+          Add Notes
+        </button>
+      </form>
+      <div className="p-10 md:border-l-2 md:w-1/2 flex flex-col gap-6 overflow-hidden h-screen">
+        <div className="flex items-center gap-2">
+          <h1 className="text-3xl font-bold ">Your Notes</h1>
+          <NotebookPen />
+        </div>
+
+        <div className="grid grid-cols-[repeat(auto-fill,minmax(10rem,10rem))] flex-1 justify-center md:justify-start gap-2 overflow-auto content-start [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+          {tasks.map((task, index) => (
+            <div
+              key={index}
+              className="bg-white h-48 w-40 rounded-2xl text-black p-3 overflow-y-auto flex flex-col gap-1  [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+            >
+              <div className="font-semibold text-xl leading-tight break-all ">
+                {task.heading}
+              </div>
+              {task.heading ? <hr /> : ""}
+              <div className="break-all text-gray-600 ">{task.notesBody}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default App;

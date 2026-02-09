@@ -32,8 +32,9 @@ function App() {
 
   // function to handle delete note
   function handleDelete(indexToDelete) {
-    const updatedTask = tasks.filter((_, index) => index !== indexToDelete);
-    setTasks(updatedTask);
+    const copyTask = [...tasks];
+    copyTask.splice(indexToDelete, 1);
+    setTasks(copyTask);
   }
 
   return (
@@ -71,7 +72,7 @@ function App() {
           <NotebookPen />
         </div>
 
-        <div className="grid grid-cols-[repeat(auto-fill,minmax(12rem,1fr))] flex-1 justify-center md:justify-start gap-2 overflow-auto content-start [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+        <div className="grid grid-cols-[repeat(auto-fill,minmax(12rem,1fr))] flex-1 justify-items-center md:justify-items-start justify-center md:justify-start gap-2 overflow-auto content-start [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
           {tasks.map((task, index) => (
             <div
               key={index}

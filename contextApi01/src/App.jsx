@@ -1,6 +1,6 @@
 import Login from "./component/Login";
 import Profile from "./component/Profile";
-import UserContextProvider from "./context/UserContextProvider";
+import UserContextProvider from "./context/UserContextProvider.jsx";
 import "./App.css";
 
 function App() {
